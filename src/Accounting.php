@@ -12,8 +12,24 @@ namespace App;
 class Accounting
 {
 
+    private $budgetRepo;
+
+    /**
+     * Accounting constructor.
+     * @param $budgetRepo
+     */
+    public function __construct(IBudgetRepo $budgetRepo)
+    {
+        $this->budgetRepo = $budgetRepo;
+    }
+
     public function totalAmount($start, $end)
     {
         return 0.00;
+    }
+
+    public function getBudgetList()
+    {
+        return $this->budgetRepo->getAll();
     }
 }
