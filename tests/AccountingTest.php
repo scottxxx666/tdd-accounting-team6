@@ -65,6 +65,16 @@ class AccountingTest extends TestCase
         $this->budgetShouldBe(31.00);
     }
 
+    public function test_0229()
+    {
+        $this->givenBudgets([
+            new \App\Budget('201602', 29.00)
+        ]);
+        $this->givenStart(2016, 2, 1);
+        $this->givenEnd(2016, 2, 28);
+        $this->budgetShouldBe(28.00);
+    }
+
     public function test_partial_month()
     {
         $this->givenBudgets([
