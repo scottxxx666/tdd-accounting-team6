@@ -44,6 +44,16 @@ class AccountingTest extends TestCase
         $this->budgetShouldBe(0.00);
     }
 
+    public function test_wrong_date()
+    {
+        $this->givenBudgets([
+            new \App\Budget('201905', 1.00)
+        ]);
+        $this->givenStart(2019, 5, 2);
+        $this->givenEnd(2019, 5, 1);
+        $this->budgetShouldBe(0.00);
+    }
+
     protected function setUp()
     {
         parent::setUp();
