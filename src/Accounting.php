@@ -45,13 +45,13 @@ class Accounting
                     $totalBudget += $budget->getAmount() * (($start->diffInDays($budgetYearMonth->endOfMonth()) + 1) /
                             $budgetYearMonth->daysInMonth
                         );
-                }
-
-                if ($budgetYearMonth->isSameMonth($end)) {
+                } else if ($budgetYearMonth->isSameMonth($end)) {
                     $endDays = $budgetYearMonth->startOfMonth()->diffInDays($end) + 1;
                     $totalBudget += $budget->getAmount() * ($endDays /
                             $budgetYearMonth->daysInMonth
                         );
+                } else {
+                    $totalBudget += $budget->getAmount();
                 }
             }
 
