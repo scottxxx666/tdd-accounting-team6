@@ -98,6 +98,19 @@ class AccountingTest extends TestCase
         $this->budgetShouldBe(138.00);
     }
 
+    public function test_cross_three_month_with_another_budget()
+    {
+        $this->givenBudgets([
+            new \App\Budget('201901', 310.00),
+            new \App\Budget('201902', 28.00),
+            new \App\Budget('201903', 3100.00),
+            new \App\Budget('201904', 3100.00),
+        ]);
+        $this->givenStart(2019, 1, 31);
+        $this->givenEnd(2019, 3, 1);
+        $this->budgetShouldBe(138.00);
+    }
+
     public function test_partial_month()
     {
         $this->givenBudgets([
