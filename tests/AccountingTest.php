@@ -29,8 +29,8 @@ class AccountingTest extends TestCase
 
     public function test_no_budget()
     {
-        $this->start = Carbon::create(2019, 4, 1);
-        $this->end = Carbon::create(2019, 4, 1);
+        $this->givenStart(2019, 4, 1);
+        $this->givenEnd(2019, 4, 1);
         $this->budgetShouldBe(0.00);
     }
 
@@ -39,8 +39,8 @@ class AccountingTest extends TestCase
         $this->givenBudgets([
             new \App\Budget('201905', 0.00)
         ]);
-        $this->start = Carbon::create(2019, 5, 1);
-        $this->end = Carbon::create(2019, 5, 1);
+        $this->givenStart(2019, 5, 1);
+        $this->givenEnd(2019, 5, 1);
         $this->budgetShouldBe(0.00);
     }
 
@@ -63,6 +63,16 @@ class AccountingTest extends TestCase
     {
         $this->budgetRepo->shouldReceive('getAll')
             ->andReturn($budgets);
+    }
+
+    private function givenStart($year, $month, $day): void
+    {
+        $this->start = Carbon::create($year, $month, $day);
+    }
+
+    private function givenEnd($year, $month, $day): void
+    {
+        $this->end = Carbon::create($year, $month, $day);
     }
 
 }
