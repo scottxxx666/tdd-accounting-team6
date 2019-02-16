@@ -12,5 +12,8 @@ namespace App;
 class Accounting
 {
 
-
+    public function totalAmount($start, $end)
+    {
+        return 0.00;
+    }
 }
