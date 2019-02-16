@@ -11,6 +11,7 @@ namespace Tests;
 use App\Accounting;
 use App\IBudgetRepo;
 use Carbon\Carbon;
+use Mockery;
 use PHPUnit\Framework\TestCase;
 
 class AccountingTest extends TestCase
@@ -124,7 +125,8 @@ class AccountingTest extends TestCase
     protected function setUp()
     {
         parent::setUp();
-        $this->budgetRepo = \Mockery::mock(IBudgetRepo::class);
+        $this->budgetRepo = Mockery::mock(IBudgetRepo::class);
+        $this->accounting = new Accounting($this->budgetRepo);
     }
 
     private function budgetShouldBe($expected): void
@@ -140,8 +142,6 @@ class AccountingTest extends TestCase
         $this->budgetRepo->shouldReceive('getAll')
             ->once()
             ->andReturn($budgets);
-
-        $this->accounting = new Accounting($this->budgetRepo);
     }
 
     private function givenStart($year, $month, $day): void
