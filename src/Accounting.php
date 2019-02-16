@@ -46,18 +46,21 @@ class Accounting
             if (!$this->isCrossMonth()) {
                 return $budget->getAmount() * ($this->end->diffInDays($this->start) + 1) / $budgetYearMonth->daysInMonth;
             } else {
-                if ($budgetYearMonth->isSameMonth($this->start)) {
-                    $totalBudget += $budget->getAmount() * (($this->start->diffInDays($budgetYearMonth->endOfMonth()) + 1) /
-                            $budgetYearMonth->daysInMonth
-                        );
-                } else if ($budgetYearMonth->isSameMonth($this->end)) {
-                    $endDays = $budgetYearMonth->startOfMonth()->diffInDays($this->end) + 1;
-                    $totalBudget += $budget->getAmount() * ($endDays /
-                            $budgetYearMonth->daysInMonth
-                        );
-                } else if ($this->inRange($budgetYearMonth)) {
-                    $totalBudget += $budget->getAmount();
-                }
+//                echo '~' . $budgetYearMonth->startOfMonth()->toDateString() . "\n";
+                $startDay = $budgetYearMonth->startOfMonth()->gt($this->start) ? $budgetYearMonth->startOfMonth()->copy() : $this->start;
+                $endDay = $budgetYearMonth->endOfMonth()->gt($this->end) ? $this->end : $budgetYearMonth->endOfMonth()->copy();
+//                echo 'start: ' . $startDay->format('Y-m-d') . "\n";
+//                echo 'end: ' . $endDay->format('Y-m-d') . "\n";
+                $sumDays = $endDay->diffInDays($startDay) + 1;
+//                echo '-' . $budgetYearMonth->startOfMonth()->toDateString() . "\n";
+//                echo $budgetYearMonth->format('Y-m') . "\n";
+                echo $sumDays . "\n";
+//
+//                echo 'start: ' . $startDay->format('Y-m-d') . "\n";
+
+                $totalBudget += $budget->getAmount() * ($sumDays /
+                        $budgetYearMonth->daysInMonth
+                    );
             }
 
         }
