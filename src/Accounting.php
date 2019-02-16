@@ -33,7 +33,9 @@ class Accounting
         $budgetList = $this->getBudgetList();
         foreach ($budgetList as $budget) {
             if ($start->format('Ym') === $budget->getYearMonth()) {
-                return $budget->getAmount();
+                return $budget->getAmount() * (($end->diffInDays($start) + 1) /
+                        $start->daysInMonth
+                    );
             }
         }
         return 0.00;

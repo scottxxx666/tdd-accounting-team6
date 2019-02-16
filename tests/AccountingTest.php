@@ -58,11 +58,21 @@ class AccountingTest extends TestCase
     public function test_whole_month()
     {
         $this->givenBudgets([
-            new \App\Budget('201905', 1.00)
+            new \App\Budget('201905', 31.00)
         ]);
         $this->givenStart(2019, 5, 1);
         $this->givenEnd(2019, 5, 31);
-        $this->budgetShouldBe(1.00);
+        $this->budgetShouldBe(31.00);
+    }
+
+    public function test_partial_month()
+    {
+        $this->givenBudgets([
+            new \App\Budget('201906', 30.00)
+        ]);
+        $this->givenStart(2019, 6, 1);
+        $this->givenEnd(2019, 6, 2);
+        $this->budgetShouldBe(2.00);
     }
 
     protected function setUp()
